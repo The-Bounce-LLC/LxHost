@@ -1,34 +1,132 @@
-# Gradle files
-.gradle/
-build/
+# ────────────────────────────────────────────────────────────
+#  ANDROID / GRADLE BUILD OUTPUT
+# ────────────────────────────────────────────────────────────
+*.apk
+*.ap_
+*.aab
+*.aar
+*.dex
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
 
-# Local configuration file (sdk path, etc)
+bin/
+gen/
+out/
+build/
+release/
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+.gradletasknamecache
 local.properties
 
-# Log/OS Files
-*.log
-
-# Android Studio generated files and folders
+# ────────────────────────────────────────────────────────────
+#  INTELIJ / ANDROID STUDIO
+# ────────────────────────────────────────────────────────────
+*.iml
+*.iws
+*.ipr
+*.hprof
+.idea/
+.cxx/
+.navigation/
 captures/
 .externalNativeBuild/
-.cxx/
-*.aab
-*.apk
-output-metadata.json
+.externalNativeBuild-cache/
 
-# IntelliJ
-*.iml
-.idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
+# ────────────────────────────────────────────────────────────
+#  ECLIPSE / NETBEANS (legacy)
+# ────────────────────────────────────────────────────────────
+.classpath
+.project
+.settings/
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
-# Keystore files
-*.jks
-*.keystore
+# ────────────────────────────────────────────────────────────
+#  NATIVE BUILD
+# ────────────────────────────────────────────────────────────
+# Object files and intermediate build output
+*.o
+*.obj
+*.lo
+*.slo
+*.ko
+*.d
+*.dwo
+*.gcda
+*.gcno
+*.gcov
+*.out
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
+# NDK build intermediates (never commit these)
+obj/
+libs/*/libpybridge.so     # ← only the OUTPUT of ndk-build, see exceptions below
 
-# Android Profiling
-*.hprof
+# ────────────────────────────────────────────────────────────
+#  OS / EDITOR / TOOLING
+# ────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+*.swp
+*.swo
+*.bak
+*.orig
+*.rej
+*.log
+.cache/
+.env
+.env.local
+
+# ────────────────────────────────────────────────────────────
+#  TERMUX / LOCAL DEV NOTES
+# ────────────────────────────────────────────────────────────
+*.termux
+termux-*.sh
+scratch/
+tmp/
+temp/
+
+# ════════════════════════════════════════════════════════════
+#  EXCEPTIONS — files we WANT tracked
+#  (rule order matters: exceptions must come after the ignores)
+# ════════════════════════════════════════════════════════════
+
+# ── Gradle wrapper — required to build ──
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+!gradlew
+!gradlew.bat
+
+# ── Prebuilt CPython + the compiled pybridge library ──
+# These live inside pybridge/ and are the raw ingredients for CI.
+!pybridge/**/*.so
+!pybridge/**/*.a
+!pybridge/**/*.c
+!pybridge/**/*.h
+!pybridge/**/*.mk
+
+# ── Anything placed inside a real jniLibs/ folder must be tracked ──
+# (that's where libpybridge.so and libpython3.8m.so end up in your app)
+!**/jniLibs/**/*.so
+!**/src/main/jniLibs/**/*.so
+
+# ── Python bridge source and bootstrap ──
+!pybridge/PyApp/app/src/main/jni/pybridge.c
+!pybridge/PyApp/app/src/main/assets/python/bootstrap.py
